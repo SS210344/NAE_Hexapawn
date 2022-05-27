@@ -6,14 +6,14 @@ public class boardDisplay {
     public static void displayBoard(pawn[][] board){
         // top line
         System.out.print("-----");
-        for (int i = 0; i < board.length; i++) {
+        for (int i = 0; i < board[1].length; i++) {
             int numLetter = i+65;
             char letter = (char) numLetter;
             System.out.print("--"+letter+"--");
         }
         System.out.println("");
         for (int i = 0; i < board.length; i++) {
-            System.out.print("--"+i+"--");
+            System.out.print("--"+(i+1)+"--");
             for (int j = 0; j < board[i].length; j++) {
 
                 pawn temp = board[i][j];
