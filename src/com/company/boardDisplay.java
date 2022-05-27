@@ -17,13 +17,13 @@ public class boardDisplay {
             for (int j = 0; j < board[i].length; j++) {
 
                 pawn temp = board[i][j];
-                if (temp.getColour()=="blank"){
+                if (temp.getColour().equals("blank")){
                     System.out.print(" [ ] ");
                 }
-                if (temp.getColour()=="black"){
+                if (temp.getColour().equals("black")){
                     System.out.print(" [B] ");
                 }
-                if (temp.getColour()=="white"){
+                if (temp.getColour().equals("white")){
                     System.out.print(" [W] ");
                 }
 
