@@ -7,7 +7,7 @@ public class Main {
         pawn[][] board = boardCreation.makeBoard(boardCreation.getBoardSize());
         board = boardCreation.initialiseBoard(board);
         boardDisplay.displayBoard(board);
-        findLegalMoves.PrintMoveCode(findLegalMoves.findWhiteMove(board));
+        findLegalMoves.PrintMoveCode(findLegalMoves.findBlackMove(board));
 
     }
 }

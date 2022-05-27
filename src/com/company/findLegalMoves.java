@@ -71,6 +71,54 @@ public class findLegalMoves {
         return moveCodeList;
     }
 
+    public static ArrayList<String> findBlackMove(pawn[][]board) {
+        ArrayList<String>moveCodeList=new ArrayList<>();
+        String MoveCode="";
+
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                MoveCode="";
+                pawn temp = board[i][j];
+                try {
+                    if (temp.getColour().equals("black")) {
+                        //move forward 1
+                        pawn newTemp = board[i+1][j];
+                        if (newTemp.getColour().equals("blank")) {
+                            int numLetter = j+65;
+                            char letter = (char) numLetter;
+
+                            MoveCode=letter+IntToSting(i+1)+letter+IntToSting(i+1+1);
+                            moveCodeList.add(MoveCode);
+                        }
+                        //take left
+                        newTemp = board[i+1][j-1];
+                        if (newTemp.getColour().equals("white")) {
+                            int numLetter = j+65-1;
+                            char letter = (char) numLetter;
+
+                            MoveCode=letter+IntToSting(i+1)+letter+IntToSting(i-1+1);
+                            moveCodeList.add(MoveCode);
+                        }
+                        //take right
+                        newTemp = board[i+1][j+1];
+                        if (newTemp.getColour().equals("white")) {
+                            int numLetter = j+65+1;
+                            char letter = (char) numLetter;
+
+                            MoveCode=letter+IntToSting(i+1)+letter+IntToSting(i-1+1);
+                            moveCodeList.add(MoveCode);
+                        }
+                    }
+                }
+                catch (Exception e){
+                    System.out.println("there was an error"+e);
+                }
+
+            }
+        }
+        return moveCodeList;
+    }
+
     private static String IntToSting(int i){
         String s=Integer.toString(i);
         return s;
