@@ -7,10 +7,12 @@ public class selectMove {
     public static String selectPlayerMove(ArrayList<String> listOfLegalMove ){
         Scanner input = new Scanner(System.in);
         int MoveSelected;
+        // prints list of moves
         System.out.println("list of legal move:");
         for (int i = 0; i < listOfLegalMove.size(); i++) {
             System.out.println((i+1)+": "+listOfLegalMove.get(i));
         }
+        //player select a number in a range and out puts the element at the list and returns it
         while (true) {
             try {
                 System.out.println("number of rows between 1 and "+(listOfLegalMove.size()));
