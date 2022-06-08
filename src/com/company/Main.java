@@ -7,8 +7,15 @@ public class Main {
         pawn[][] board = boardCreation.makeBoard(boardCreation.getBoardSize());
         board = boardCreation.initialiseBoard(board);
         boardDisplay.displayBoard(board);
+
         board= updateBoard.boardUpdate(board,"A1A2");
+        board= updateBoard.boardUpdate(board,"B1B2");
+        board= updateBoard.boardUpdate(board,"C1C2");
+
         boardDisplay.displayBoard(board);
+        findLegalMoves.PrintMoveCode(findLegalMoves.findWhiteMove(board));
+        boardDisplay.displayBoard(board);
+
 
     }
 }
