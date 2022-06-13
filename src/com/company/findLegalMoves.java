@@ -46,7 +46,7 @@ public class findLegalMoves {
 
 
                     } catch (Exception e) {
-                        System.out.println("there was an error" + e);
+                        System.out.print("");
                     }
                     //take left
                     try {
@@ -62,7 +62,7 @@ public class findLegalMoves {
                             moveCodeList.add(MoveCode);
                         }
                     } catch (Exception e) {
-                        System.out.println("there was an error" + e);
+                        System.out.print("");
                     }
                     try {
 
@@ -79,7 +79,7 @@ public class findLegalMoves {
                             moveCodeList.add(MoveCode);
                         }
                     } catch (Exception e) {
-                        System.out.println("there was an error" + e);
+                        System.out.print("");
                     }
 
                 }
@@ -112,7 +112,7 @@ public class findLegalMoves {
                             moveCodeList.add(MoveCode);
                         }
                     }catch (Exception e){
-                        System.out.println("there was an error"+e);
+                        System.out.print("");
                     }
 
                     try {
@@ -130,7 +130,7 @@ public class findLegalMoves {
                             moveCodeList.add(MoveCode);
                         }
                     }                catch (Exception e){
-                        System.out.println("there was an error"+e);
+                        System.out.print("");
                     }
 
 
@@ -148,7 +148,7 @@ public class findLegalMoves {
                             moveCodeList.add(MoveCode);
                         }
                     }                catch (Exception e){
-                        System.out.println("there was an error"+e);
+                        System.out.print("");
                     }
 
 
