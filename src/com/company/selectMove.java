@@ -15,7 +15,7 @@ public class selectMove {
         //player select a number in a range and out puts the element at the list and returns it
         while (true) {
             try {
-                System.out.println("number of rows between 1 and "+(listOfLegalMove.size()));
+                System.out.println("number of move wanted between 1 and "+(listOfLegalMove.size()));
                  MoveSelected= input.nextInt();
                 if ((MoveSelected >= 1) && (MoveSelected <=listOfLegalMove.size())){
                     break;
