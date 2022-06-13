@@ -13,7 +13,7 @@ public class Main {
         board= updateBoard.boardUpdate(board,"C1C2");
 
         boardDisplay.displayBoard(board);
-        board= updateBoard.boardUpdate(board,selectMove.selectPlayerMove(findLegalMoves.findBlackMove(board)));
+        board= updateBoard.boardUpdate(board,selectMove.selectAIMove(findLegalMoves.findBlackMove(board)));
         boardDisplay.displayBoard(board);
 
 

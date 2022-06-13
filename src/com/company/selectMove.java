@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class selectMove {
@@ -34,5 +35,12 @@ public class selectMove {
         String MoveCode = listOfLegalMove.get(MoveSelected-1);
 
         return MoveCode;
+    }
+    public static String selectAIMove(ArrayList<String> listOfLegalMove ){
+        Random randInt = new Random();
+        int RandomMoveInt = randInt.nextInt(listOfLegalMove.size());
+        String RandomMoveCode=listOfLegalMove.get(RandomMoveInt);
+        System.out.println(RandomMoveCode);
+        return RandomMoveCode;
     }
 }
