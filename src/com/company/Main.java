@@ -4,6 +4,7 @@ public class Main {
 
     public static void main(String[] args) {
         // write your code here
+        ReadTable.SQLTest();
         pawn[][] board = boardCreation.makeBoard(boardCreation.getBoardSize());
         board = boardCreation.initialiseBoard(board);
         boardDisplay.displayBoard(board);
