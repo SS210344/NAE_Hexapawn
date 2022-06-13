@@ -8,16 +8,20 @@ public class Main {
         board = boardCreation.initialiseBoard(board);
         boardDisplay.displayBoard(board);
 
-
-        board= updateBoard.boardUpdate(board,"A1A2");
-        board= updateBoard.boardUpdate(board,"B1B2");
-        board= updateBoard.boardUpdate(board,"C1C2");
+        String[] winner =PlayGame.Game(board);
+        System.out.println(winner[0]);
 
 
 
+
+
+
+/*
         boardDisplay.displayBoard(board);
-        board= updateBoard.boardUpdate(board,selectMove.selectAIMove(findLegalMoves.findBlackMove(board)));
+        board= updateBoard.boardUpdate(board,selectMove.selectPlayerMove(findLegalMoves.findBlackMove(board)));
         boardDisplay.displayBoard(board);
+
+ */
 
 
 
