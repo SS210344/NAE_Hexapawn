@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 public class findLegalMoves {
     public static void findLegalMovesSet(pawn[][]board){
+        //see if tables exist
+        String TableBaseName = board.length +"x" +board[0].length;
+
         //make board fennel string
         String boardState = "";
         for (int i = 0; i < board.length; i++) {
@@ -17,7 +20,7 @@ public class findLegalMoves {
                 }
                 if (temp.getColour().equals("white")){
                     boardState=boardState+"01";
-                    //https://github.com/julieheard/projectManager/tree/master/src/ma
+
 
                 }
             }
