@@ -10,6 +10,7 @@ public class Main {
         board = boardCreation.initialiseBoard(board);
 
         boardDisplay.displayBoard(board);
+        AddMovesToTable.AddMoves(findLegalMoves.findBlackMove(board),board);
 
         String[] winner =PlayGame.Game(board);
         System.out.println(winner[0]);
