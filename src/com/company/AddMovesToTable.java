@@ -38,6 +38,7 @@ public class AddMovesToTable {
         //get list of move already in dataBAse
         System.out.println(isBoardInDataBase(TableBaseName,BoardStateNumber));
         ArrayList<String>ListOfMoveCodesInDataBase = GetListOFMoveCodesInDataBase(TableBaseName);
+        // remove move code already in database
         for (int i = 0; i < ListOfMoveCodesInDataBase.size(); i++) {
             System.out.println(ListOfLegalMoveCodes.get(i));
         }
@@ -118,7 +119,24 @@ public class AddMovesToTable {
         }
         return ListOfMoveCodesInDataBase;
     }
+    private static ArrayList<String> removeMoveCodeAlreadyInDataBase(ArrayList<String>ListOfLegalMoveCodes ,ArrayList<String>ListOfMoveCodesInDataBase){
+        ArrayList<String>ListOfNonRepeatedMoveCodes = new ArrayList<>();
+        for (int i = 0; i < ListOfLegalMoveCodes.size(); i++) {
+            String MoveCode =ListOfLegalMoveCodes.get(i);
+            Boolean repeated = false;
+            for (int j = 0; j < ListOfMoveCodesInDataBase.size(); j++) {
+                if(MoveCode.equals(ListOfMoveCodesInDataBase.get(j))){
+                    repeated = true;
+                    break;
+                }
+            }
+            if (repeated == false){
+                ListOfNonRepeatedMoveCodes.add(MoveCode);
+            }
+        }
+        return ListOfNonRepeatedMoveCodes;
 
+    }
 
 
 
