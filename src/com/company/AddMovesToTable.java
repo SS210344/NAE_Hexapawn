@@ -83,13 +83,15 @@ public class AddMovesToTable {
     }
 
     private static void AddBoardToDataBase(String baseTableName,int BoardStateNumber) {
+        System.out.println(baseTableName);
 
         String DatabaseLocation = System.getProperty("user.dir") + "\\NEA_HexaPawn.accdb";
         try {
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             String sql = "INSERT INTO "+baseTableName + "BoardState (BoardFennelString,BoardSize)";
-            sql =sql + "Values("+BoardStateNumber+","+baseTableName+");";
+            sql =sql + " Values("+BoardStateNumber+","+baseTableName+");";
+            System.out.println(sql);
             int i = stmt.executeUpdate(sql);
             System.out.println("rows Added "+i);
             con.close();

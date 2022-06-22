@@ -6,6 +6,7 @@ public class Main {
         // write your code here
         //ReadTable.SQLTest();
         //System.out.println(ReadTable.SeeIfTableExist("3x3"));
+        CreateTable.CreateTableSet("4x4");
         pawn[][] board = boardCreation.makeBoard(boardCreation.getBoardSize());
         board = boardCreation.initialiseBoard(board);
 
