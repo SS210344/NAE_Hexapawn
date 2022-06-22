@@ -61,25 +61,24 @@ public class AddMovesToTable {
     private static boolean isBoardInDataBase(String baseTableName,int BoardStateNumber) {
 
         String DatabaseLocation = System.getProperty("user.dir") + "\\NEA_HexaPawn.accdb";
+        Boolean exist = false;
         try {
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             String sql = "SELECT * FROM " + baseTableName + "BoardState";
-            sql = sql + " Where BoardFennelString = " + BoardStateNumber;
             ResultSet rs = stmt.executeQuery(sql);
-            if (!rs.wasNull()) {
+            while (rs.next()) {
+                exist = true;
                 rs.close();
                 con.close();
-                return false;
-            } else {
-                rs.close();
-                con.close();
-                return true;
             }
+            return exist;
         } catch (Exception e) {
             System.out.println("Error in the SQL class: isBoardInDataBase " + e);
-            return false;
+            exist = false;
+            return exist;
         }
+
     }
 
     private static void AddBoardToDataBase(String baseTableName,int BoardStateNumber) {
