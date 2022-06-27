@@ -18,12 +18,14 @@ public class CreateTable {
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
-            String sql = "Drop Table if Exists "+BaseTableName+"BoardState CREATE TABLE "+BaseTableName+"BoardState (\n" +
-                    "    BoardID int NOT NULL PRIMARY KEY,\n" +
-                    "    BoardFennelString Long,\n" +
-                    "    BoardSize varchar(255)\n" +
-                    ");";
-            stmt.execute(sql);
+            String sql = "DROP TABLE IF EXISTS "+BaseTableName+"BoardState CREATE TABLE "+BaseTableName+"BoardState (\n"+
+                    "BoardID INT NOT NULL PRIMARY KEY,\n"+
+                    "BoardFennelString LONG,\n"+
+                    "BoardSize VARCHAR(255)\n"+
+            ");";
+            System.out.println(sql);
+
+            stmt.executeUpdate(sql);
 
             con.close();
 
@@ -56,11 +58,13 @@ public class CreateTable {
         try {
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation,"","");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String sql = "Drop TAble if Exists "+BaseTableName+"Link CREATE TABLE "+BaseTableName+"Link (\n" +
+            String sql = "Drop Table if Exists "+BaseTableName+"Link CREATE TABLE "+BaseTableName+"Link (\n" +
                     "    LinkID int NOT NULL PRIMARY KEY,\n" +
                     "    BoardID int,\n" +
                     "    MoveID int,\n" +
                     "    considered Boolean\n" +
+                    "    FOREIGN KEY(BoardID) REFERENCES "+BaseTableName+"BoardState(BoardID),\n" +
+                    "    FOREIGN KEY(MoveID) REFERENCES "+BaseTableName+"Moves(MoveID)\n" +
                     ");";
             stmt.execute(sql);
 

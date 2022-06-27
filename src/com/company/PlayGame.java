@@ -16,7 +16,7 @@ public class PlayGame {
         while (true) {
             //outputs the winner
             String Winner = IsPieceAtOtherEnd(board);
-            if ((Winner.equals("white wins")||(Winner.equals("black Wins")))) {
+            if ((Winner.equals("white wins")||(Winner.equals("black wins")))) {
                 String[] Output = new String[3];
                 Output[0] = Winner.substring(0,5);
                 Output[1] = colourOfPlayer;
@@ -57,12 +57,12 @@ public class PlayGame {
             //display board
             boardDisplay.displayBoard(board);
 
-            // see what colour player wants to play as
+
 
 
             //outputs the winner
             Winner = IsPieceAtOtherEnd(board);
-            if ((Winner.equals("white wins") || (Winner.equals("black Wins")))) {
+            if ((Winner.equals("white wins") || (Winner.equals("black wins")))) {
                 String[] Output = new String[3];
                 Output[0] = Winner.substring(0, 5);
                 Output[1] = colourOfPlayer;
