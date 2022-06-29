@@ -55,28 +55,30 @@ public class WinRecord {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 String GameType = rs.getString("GameType");
+                System.out.println(GameType);
                 if (GameType.equals(GameTypePlayed)){
                     System.out.println("record found");
                     //see if player or AI won
                     if(Output[0].equals(Output[1])){
                         //player won
                         UpdatePlayerRecord(GameTypePlayed);
-                        break;
-                    }
-                    else{
+                        rs.close();
+                        con.close();
+                        return;
+                    } else{
                         //AI won
                         UpdateAIRecord(GameTypePlayed);
-                        break;
+                        rs.close();
+                        con.close();
+                        return;
                     }
-
                 }
-
             }
-            System.out.println("record not found");
+            addNewRecord(GameTypePlayed);
             rs.close();
             con.close();
-            addNewRecord(GameTypePlayed);
-            UpdateRecords(Output);
+            //UpdateRecords(Output); add when inset works
+            System.out.println("record not found");
         } catch (Exception e) {
             System.out.println("Error in the SQL class SeeWinRecord: " + e);
         }
@@ -115,6 +117,7 @@ public class WinRecord {
     }
     private static void addNewRecord(String GameTypePlayed){
         String DatabaseLocation = System.getProperty("user.dir") + "\\NEA_HexaPawn.accdb";
+        System.out.println("trying to add a record");
 
         try {
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
