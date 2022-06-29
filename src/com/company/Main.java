@@ -7,7 +7,7 @@ public class Main {
         //ReadTable.SQLTest();
         //System.out.println(ReadTable.SeeIfTableExist("3x3"));
         //CreateTable.CreateTableSet("4x4");
-        WinRecord.SeeWinRecord("3x3Black");
+        WinRecord.SeeWinRecord(WinRecord.GetGameType());
         pawn[][] board = boardCreation.makeBoard(boardCreation.getBoardSize());
         board = boardCreation.initialiseBoard(board);
 

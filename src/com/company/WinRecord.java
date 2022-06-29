@@ -19,19 +19,26 @@ public class WinRecord {
                 String GameType = rs.getString("GameType");
                 if(GameType.equals(gameTypeToGet)){
                     System.out.println("Board size : "+ GameType.substring(0,3) );
-                    System.out.println("Play played as :"+GameType.substring(3,GameType.length()) );
+                    System.out.println("Play played as : "+GameType.substring(3) );
                     System.out.println("Player Wins : " +rs.getInt("PlayerWins"));
                     System.out.println("AI wins : " + rs.getInt("AiWins"));
                     break;
                 }
 
-
             }
+            System.out.println("record not found");
             rs.close();
             con.close();
         } catch (Exception e) {
             System.out.println("Error in the SQL class SeeWinRecord: " + e);
         }
+    }
+    public static String GetGameType(){
+        int[] BoardSize = boardCreation.getBoardSize();
+        String GameType =BoardSize[0]+"x"+BoardSize[1];
+        GameType+= PlayGame.SelectColourPlayWillPlayAS();
+        return GameType;
+
     }
 }
 

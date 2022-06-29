@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class PlayGame {
     public static String[] Game(pawn[][] board){
-        String colourOfCurrentPlayer ="white";
+        String colourOfCurrentPlayer ="White";
         String AILastMove = "";
 
         //display Board
@@ -16,7 +16,7 @@ public class PlayGame {
         while (true) {
             //outputs the winner
             String Winner = IsPieceAtOtherEnd(board);
-            if ((Winner.equals("white wins")||(Winner.equals("black wins")))) {
+            if ((Winner.equals("White wins")||(Winner.equals("Black wins")))) {
                 String[] Output = new String[3];
                 Output[0] = Winner.substring(0,5);
                 Output[1] = colourOfPlayer;
@@ -26,7 +26,7 @@ public class PlayGame {
             }
             //find legal moves
             ArrayList<String> listOFLegalMoveCode;
-            if (colourOfCurrentPlayer.equals("white") ){
+            if (colourOfCurrentPlayer.equals("White") ){
                 listOFLegalMoveCode=findLegalMoves.findWhiteMove(board);
             }else{
                 listOFLegalMoveCode=findLegalMoves.findBlackMove(board);
@@ -35,10 +35,10 @@ public class PlayGame {
             //see if there are no legal moves
             if(listOFLegalMoveCode.size()==0 ) {
                 String[] Output = new String[3];
-                if (colourOfCurrentPlayer.equals("white")) {
-                    Output[0] = "black";
+                if (colourOfCurrentPlayer.equals("White")) {
+                    Output[0] = "Black";
                 }else{
-                    Output[0]="white";
+                    Output[0]="White";
                 }
                 Output[1] = colourOfPlayer;
                 Output[2] = AILastMove;
@@ -62,7 +62,7 @@ public class PlayGame {
 
             //outputs the winner
             Winner = IsPieceAtOtherEnd(board);
-            if ((Winner.equals("white wins") || (Winner.equals("black wins")))) {
+            if ((Winner.equals("White wins") || (Winner.equals("Black wins")))) {
                 String[] Output = new String[3];
                 Output[0] = Winner.substring(0, 5);
                 Output[1] = colourOfPlayer;
@@ -73,10 +73,10 @@ public class PlayGame {
             }
 
             //change player to play
-            if(colourOfCurrentPlayer.equals("white")) {
-                colourOfCurrentPlayer = "black";
+            if(colourOfCurrentPlayer.equals("White")) {
+                colourOfCurrentPlayer = "Black";
             }else {
-                colourOfCurrentPlayer="white";
+                colourOfCurrentPlayer="White";
             }
 
         }
@@ -90,19 +90,22 @@ public class PlayGame {
 
 
 
-    private static String SelectColourPlayWillPlayAS() {
+    public static String SelectColourPlayWillPlayAS() {
         Scanner input = new Scanner(System.in);
         String colourOfPlayer;
         while (true) {
             try {
-                System.out.println("chose colour to play as black or white:");
+                System.out.println("chose colour to play as Black or White:");
                 colourOfPlayer= input.next();
-                if ((colourOfPlayer.equals("black")||(colourOfPlayer.equals("white")))){
+                if ((colourOfPlayer.equals("Black")||(colourOfPlayer.equals("White")))){
                     return colourOfPlayer;
+                }
+                else{
+                    System.out.println("The first letter need to be a capital");
                 }
 
             } catch (java.util.InputMismatchException e) {
-                System.out.println("please input black or white");
+                System.out.println("please input Black or White and the first letter need to be a capital");
                 input.next();
             } catch (Exception e) {
                 System.out.println("there was and error " + e);
@@ -116,13 +119,13 @@ public class PlayGame {
         for (int i = 0; i < board[0].length; i++) {
             tempPawn.setColour(board[0][i].getColour());
             if (tempPawn.getColour().equals("white")) {
-                return "white wins";
+                return "White wins";
             }
         }
         for (int i = 0; i < board[board.length-1].length; i++) {
             tempPawn.setColour(board[board.length-1][i].getColour());
             if (tempPawn.getColour().equals("black")) {
-                return "black wins";
+                return "Black wins";
             }
         }
            return "no winner";
