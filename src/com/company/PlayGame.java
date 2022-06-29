@@ -8,18 +8,21 @@ public class PlayGame {
     public static String[] Game(pawn[][] board){
         String colourOfCurrentPlayer ="White";
         String AILastMove = "";
+        String BoardSize = board.length+"x"+board[0].length;
+        String[] Output = new String[4];
+        Output[3] = BoardSize;
 
-        //display Board
+
+                //display Board
         boardDisplay.displayBoard(board);
         // see what colour player wants to play as
         String colourOfPlayer = SelectColourPlayWillPlayAS();
+        Output[1] = colourOfPlayer;
         while (true) {
             //outputs the winner
             String Winner = IsPieceAtOtherEnd(board);
             if ((Winner.equals("White wins")||(Winner.equals("Black wins")))) {
-                String[] Output = new String[3];
                 Output[0] = Winner.substring(0,5);
-                Output[1] = colourOfPlayer;
                 Output[2] = AILastMove;
                 return Output;
 
@@ -34,13 +37,11 @@ public class PlayGame {
 
             //see if there are no legal moves
             if(listOFLegalMoveCode.size()==0 ) {
-                String[] Output = new String[3];
                 if (colourOfCurrentPlayer.equals("White")) {
                     Output[0] = "Black";
                 }else{
                     Output[0]="White";
                 }
-                Output[1] = colourOfPlayer;
                 Output[2] = AILastMove;
                 return Output;
             }
@@ -63,9 +64,7 @@ public class PlayGame {
             //outputs the winner
             Winner = IsPieceAtOtherEnd(board);
             if ((Winner.equals("White wins") || (Winner.equals("Black wins")))) {
-                String[] Output = new String[3];
                 Output[0] = Winner.substring(0, 5);
-                Output[1] = colourOfPlayer;
                 Output[2] = AILastMove;
                 return Output;
 
