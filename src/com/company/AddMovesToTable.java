@@ -88,7 +88,7 @@ public class AddMovesToTable {
         try {
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String sql = "INSERT INTO "+baseTableName + "BoardState (BoardFennelString,BoardSize)";
+            String sql = "INSERT INTO BoardState"+baseTableName +" (BoardFennelString,BoardSize)";
             sql =sql + " Values("+BoardStateNumber+","+baseTableName+");";
             System.out.println(sql);
             int i = stmt.executeUpdate(sql);

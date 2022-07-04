@@ -18,12 +18,11 @@ public class CreateTable {
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
-            String sql = "DROP TABLE IF EXISTS "+BaseTableName+"BoardState CREATE TABLE "+BaseTableName+"BoardState (\n"+
+            String sql = "CREATE TABLE BoardState"+BaseTableName+" (\n"+
                     "BoardID INT NOT NULL PRIMARY KEY,\n"+
                     "BoardFennelString LONG,\n"+
                     "BoardSize VARCHAR(255)\n"+
             ");";
-            System.out.println(sql);
 
             stmt.executeUpdate(sql);
 
@@ -40,7 +39,7 @@ public class CreateTable {
         try {
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String sql = "Drop TAble if Exists "+BaseTableName+"Moves CREATE TABLE "+BaseTableName+"Moves (\n" +
+            String sql = "CREATE TABLE Moves"+BaseTableName+" (\n" +
                     "    MoveID int NOT NULL PRIMARY KEY,\n" +
                     "    MoveCode varchar(255)\n" +
                     ");";
@@ -58,13 +57,13 @@ public class CreateTable {
         try {
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation,"","");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String sql = "Drop Table if Exists "+BaseTableName+"Link CREATE TABLE "+BaseTableName+"Link (\n" +
+            String sql = "CREATE TABLE Link"+BaseTableName+" (\n" +
                     "    LinkID int NOT NULL PRIMARY KEY,\n" +
                     "    BoardID int,\n" +
                     "    MoveID int,\n" +
-                    "    considered Boolean\n" +
-                    "    FOREIGN KEY(BoardID) REFERENCES "+BaseTableName+"BoardState(BoardID),\n" +
-                    "    FOREIGN KEY(MoveID) REFERENCES "+BaseTableName+"Moves(MoveID)\n" +
+                    "    Considered yesNo,\n" +
+                    "    FOREIGN KEY (BoardID) REFERENCES BoardState"+BaseTableName+" (BoardID) ,\n" +
+                    "    FOREIGN KEY (MoveID) REFERENCES Moves"+BaseTableName+" (MoveID) \n" +
                     ");";
             stmt.execute(sql);
 

@@ -43,7 +43,7 @@ public class WinRecord {
     }
 
     public static void UpdateRecords(String[] Output) {
-        String GameTypePlayed = Output[3]+Output[1];
+        String GameTypePlayed = Output[1]+Output[3];
         System.out.println(GameTypePlayed);
         String DatabaseLocation = System.getProperty("user.dir") + "\\NEA_HexaPawn.accdb";
 
