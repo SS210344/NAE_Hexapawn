@@ -19,7 +19,7 @@ public class CreateTable {
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             String sql = "CREATE TABLE BoardState"+BaseTableName+" (\n"+
-                    "BoardID INT NOT NULL PRIMARY KEY,\n"+
+                    "BoardID AUTOINCREMENT NOT NULL PRIMARY KEY,\n"+
                     "BoardFennelString LONG,\n"+
                     "BoardSize VARCHAR(255)\n"+
             ");";
@@ -40,7 +40,7 @@ public class CreateTable {
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             String sql = "CREATE TABLE Moves"+BaseTableName+" (\n" +
-                    "    MoveID int NOT NULL PRIMARY KEY,\n" +
+                    "    MoveID AUTOINCREMENT NOT NULL PRIMARY KEY,\n" +
                     "    MoveCode varchar(255)\n" +
                     ");";
             stmt.execute(sql);
@@ -58,7 +58,7 @@ public class CreateTable {
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation,"","");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             String sql = "CREATE TABLE Link"+BaseTableName+" (\n" +
-                    "    LinkID int NOT NULL PRIMARY KEY,\n" +
+                    "    LinkID AUTOINCREMENT NOT NULL PRIMARY KEY,\n" +
                     "    BoardID int,\n" +
                     "    MoveID int,\n" +
                     "    Considered yesNo,\n" +
