@@ -91,7 +91,7 @@ public class WinRecord {
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             String sql = "UPDATE WinRecord \n";
             sql += "SET PlayerWins = PlayerWins +1 \n";
-            sql += "WHERE GameType = "+GameTypePlayed+";";
+            sql += "WHERE GameType = '"+GameTypePlayed+"';";
             stmt.executeUpdate(sql);
             con.close();
         } catch (Exception e) {
@@ -107,7 +107,7 @@ public class WinRecord {
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             String sql = "UPDATE WinRecord \n";
             sql += "SET AiWins = AiWins +1 \n";
-            sql += "WHERE GameType = "+GameTypePlayed+";";
+            sql += "WHERE GameType = '"+GameTypePlayed+"';";
             stmt.executeUpdate(sql);
             con.close();
         } catch (Exception e) {
