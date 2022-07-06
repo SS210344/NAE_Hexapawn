@@ -7,9 +7,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class findLegalMoves {
-    public static void findLegalMovesSet(pawn[][]board){
+    public static void findLegalMovesSet(pawn[][]board,String ColourOfPlayer,String ColourOfCurrentPlayer){
         //see if tables exist
         String TableBaseName = board.length +"x" +board[0].length;
+        Boolean doesBoardSetExist = DoesTableExist("Link"+TableBaseName);
+
 
 
         //make board fennel string
@@ -29,6 +31,11 @@ public class findLegalMoves {
 
                 }
             }
+        }
+        if (doesBoardSetExist){
+            //the tables exist
+
+
         }
     }
     public static ArrayList<String> findWhiteMove(pawn[][]board) {
@@ -159,12 +166,7 @@ public class findLegalMoves {
                         System.out.print("");
                     }
 
-
-
-
                 }
-
-
 
             }
         }
