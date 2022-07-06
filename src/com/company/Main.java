@@ -4,6 +4,7 @@ public class Main {
 
     public static void main(String[] args) {
         // write your code here
+        MainMenu.Menu();
         //ReadTable.SQLTest();
         //System.out.println(ReadTable.SeeIfTableExist("3x3"));
         //CreateTable.CreateTableSet("4x4");
