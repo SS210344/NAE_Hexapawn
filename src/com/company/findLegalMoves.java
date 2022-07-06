@@ -1,11 +1,16 @@
 package com.company;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class findLegalMoves {
     public static void findLegalMovesSet(pawn[][]board){
         //see if tables exist
         String TableBaseName = board.length +"x" +board[0].length;
+
 
         //make board fennel string
         String boardState = "";
@@ -170,10 +175,29 @@ public class findLegalMoves {
         String s=Integer.toString(i);
         return s;
     }
+    public static Boolean DoesTableExist(String TableName){
+        String DatabaseLocation = System.getProperty("user.dir") + "\\NEA_HexaPawn.accdb";
+        try {
+            Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation,"","");
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            String sql = "SELECT * FROM "+TableName+" ;";
+            ResultSet rs =  stmt.executeQuery(sql);
+            if(rs.next()) {
+                con.close();
+                rs.close();
+                return true;
+            }
+            else{
+                return true;
+            }
 
-    public static void PrintMoveCode(ArrayList<String>MoveCodeList){
-        for (int i = 0; i < MoveCodeList.size(); i++) {
-            System.out.println(MoveCodeList.get(i));
+        } catch (Exception e) {
+            System.out.println("Error in the SQL class : DoesTableExist " + e);
+            return false;
         }
+
     }
+
+
+
 }

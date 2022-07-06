@@ -4,6 +4,8 @@ public class Main {
 
     public static void main(String[] args) {
         // write your code here
+        CreateTable.CreateTableSet("4x4");
+        System.out.println(findLegalMoves.DoesTableExist("Link4x4"));
         MainMenu.Menu();
         //ReadTable.SQLTest();
         //System.out.println(ReadTable.SeeIfTableExist("3x3"));
