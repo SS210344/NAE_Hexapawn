@@ -65,18 +65,17 @@ public class AddMovesToTable {
         try {
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String sql = "SELECT * FROM " + baseTableName + "BoardState";
+            String sql = "SELECT * FROM BoardState "+ baseTableName +";";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                exist = true;
                 rs.close();
                 con.close();
+                return true;
             }
             return exist;
         } catch (Exception e) {
             System.out.println("Error in the SQL class: isBoardInDataBase " + e);
-            exist = false;
-            return exist;
+            return false;
         }
 
     }
@@ -107,7 +106,7 @@ public class AddMovesToTable {
         try {
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String sql = "SELECT * FROM " + baseTableName + "Moves";
+            String sql = "SELECT * FROM Moves"+ baseTableName+";";
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
                 ListOfMoveCodesInDataBase.add(rs.getString("MoveCode"));

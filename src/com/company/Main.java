@@ -1,11 +1,19 @@
 package com.company;
 
+import java.util.ArrayList;
+
 public class Main {
 
     public static void main(String[] args) {
         // write your code here
-        CreateTable.CreateTableSet("4x4");
-        System.out.println(findLegalMoves.DoesTableExist("Link4x4"));
+
+        ArrayList<String>Moves = new ArrayList<>();
+        Moves = findLegalMoves.GetMoveCodesFromTable("3x3",1);
+        for (int i = 0; i < Moves.size(); i++) {
+            System.out.println(Moves.get(i));
+
+        }
+
         MainMenu.Menu();
         //ReadTable.SQLTest();
         //System.out.println(ReadTable.SeeIfTableExist("3x3"));
