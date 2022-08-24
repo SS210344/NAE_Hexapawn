@@ -47,7 +47,7 @@ public class AddMovesToTable {
         //link the moves and table
         int BoardID = GetBoardID(TableBaseName, BoardStateNumber);
         for (int i = 0; i < ListOfLegalMoveCodes.size(); i++) {
-            int MoveID = 1;
+            int MoveID = GetMoveID(TableBaseName,ListOfLegalMoveCodes.get(i));
             AddLinkToDataBase(TableBaseName, BoardID, MoveID);
 
         }
@@ -208,7 +208,32 @@ public class AddMovesToTable {
             rs.close();
             con.close();
         } catch (Exception e) {
-            System.out.println("Error in the SQL class SeeWinRecord: " + e);
+            System.out.println("Error in the SQL class GetBoardId: " + e);
+            return 0;
+        }
+        return 0;
+    }
+    public static int GetMoveID(String baseTableName,String MoveCodeTofind) {
+
+        String DatabaseLocation = System.getProperty("user.dir") + "\\NEA_HexaPawn.accdb";
+
+        try {
+            Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            String sql = "SELECT * FROM Moves" + baseTableName + ";";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                String MoveCode= rs.getString("MoveCode");
+                if (MoveCode.equals(MoveCodeTofind)) {
+                    return rs.getInt("MoveID");
+                }
+
+            }
+            System.out.println("record not found");
+            rs.close();
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error in the SQL class getMoveID: " + e);
             return 0;
         }
         return 0;
