@@ -29,11 +29,7 @@ public class PlayGame {
             }
             //find legal moves
             ArrayList<String> listOFLegalMoveCode;
-            if (colourOfCurrentPlayer.equals("White") ){
-                listOFLegalMoveCode=FindMoveOnBoard.findWhiteMove(board);
-            }else{
-                listOFLegalMoveCode=FindMoveOnBoard.findBlackMove(board);
-            }
+            listOFLegalMoveCode = findLegalMoves.findLegalMovesSet(board,colourOfPlayer,colourOfCurrentPlayer);
 
             //see if there are no legal moves
             if(listOFLegalMoveCode.size()==0 ) {
