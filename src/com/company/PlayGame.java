@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class PlayGame {
     public static String[] Game(pawn[][] board){
-        String colourOfCurrentPlayer ="White";
+        String colourOfCurrentPlayer ="white";
         String AILastMove = "";
         String BoardSize = board.length+"x"+board[0].length;
         String[] Output = new String[4];
@@ -21,7 +21,7 @@ public class PlayGame {
         while (true) {
             //outputs the winner
             String Winner = IsPieceAtOtherEnd(board);
-            if ((Winner.equals("White wins")||(Winner.equals("Black wins")))) {
+            if ((Winner.equals("white wins")||(Winner.equals("black wins")))) {
                 Output[0] = Winner.substring(0,5);
                 Output[2] = AILastMove;
                 return Output;
@@ -29,7 +29,7 @@ public class PlayGame {
             }
             //find legal moves
             ArrayList<String> listOFLegalMoveCode;
-            if (colourOfCurrentPlayer.equals("White") ){
+            if (colourOfCurrentPlayer.equals("white") ){
                 listOFLegalMoveCode=FindMoveOnBoard.findWhiteMove(board);
             }else{
                 listOFLegalMoveCode=FindMoveOnBoard.findBlackMove(board);
@@ -37,10 +37,10 @@ public class PlayGame {
 
             //see if there are no legal moves
             if(listOFLegalMoveCode.size()==0 ) {
-                if (colourOfCurrentPlayer.equals("White")) {
-                    Output[0] = "Black";
+                if (colourOfCurrentPlayer.equals("white")) {
+                    Output[0] = "black";
                 }else{
-                    Output[0]="White";
+                    Output[0]="white";
                 }
                 Output[2] = AILastMove;
                 return Output;
@@ -63,7 +63,7 @@ public class PlayGame {
 
             //outputs the winner
             Winner = IsPieceAtOtherEnd(board);
-            if ((Winner.equals("White wins") || (Winner.equals("Black wins")))) {
+            if ((Winner.equals("white wins") || (Winner.equals("black wins")))) {
                 Output[0] = Winner.substring(0, 5);
                 Output[2] = AILastMove;
                 return Output;
@@ -72,10 +72,10 @@ public class PlayGame {
             }
 
             //change player to play
-            if(colourOfCurrentPlayer.equals("White")) {
-                colourOfCurrentPlayer = "Black";
+            if(colourOfCurrentPlayer.equals("white")) {
+                colourOfCurrentPlayer = "black";
             }else {
-                colourOfCurrentPlayer="White";
+                colourOfCurrentPlayer="white";
             }
 
         }
@@ -94,9 +94,9 @@ public class PlayGame {
         String colourOfPlayer;
         while (true) {
             try {
-                System.out.println("chose colour to play as Black or White:");
+                System.out.println("chose colour to play as black or white:");
                 colourOfPlayer= input.next();
-                if ((colourOfPlayer.equals("Black")||(colourOfPlayer.equals("White")))){
+                if ((colourOfPlayer.equals("black")||(colourOfPlayer.equals("white")))){
                     return colourOfPlayer;
                 }
                 else{
@@ -104,7 +104,7 @@ public class PlayGame {
                 }
 
             } catch (java.util.InputMismatchException e) {
-                System.out.println("please input Black or White and the first letter need to be a capital");
+                System.out.println("please input black or white and the first letter need to not be a capital");
                 input.next();
             } catch (Exception e) {
                 System.out.println("there was and error " + e);

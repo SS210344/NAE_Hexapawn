@@ -22,6 +22,7 @@ public class MainMenu {
                     }
                     if (option == 2) {
                         //see win record
+                        WinRecord.SeeWinRecord(WinRecord.GetGameType());
                     }
                     if (option == 3) {
                         //instructions and rules
