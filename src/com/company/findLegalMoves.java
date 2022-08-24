@@ -39,9 +39,11 @@ public class findLegalMoves {
             //who is playing
             if(ColourOfPlayer.equals("White")){
                 SetOfLegalMoveCodes=FindMoveOnBoard.findWhiteMove(board);
+                AddMovesToTable.AddMoves(SetOfLegalMoveCodes,board);
             }
             else{
                 SetOfLegalMoveCodes= FindMoveOnBoard.findBlackMove(board);
+                AddMovesToTable.AddMoves(SetOfLegalMoveCodes,board);
             }
         }
     }
