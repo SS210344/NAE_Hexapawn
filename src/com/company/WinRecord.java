@@ -18,11 +18,11 @@ public class WinRecord {
             while (rs.next()) {
                 String GameType = rs.getString("GameType");
                 if (GameType.equals(gameTypeToGet)) {
-                    System.out.println("Board size : " + GameType.substring(0, 3));
-                    System.out.println("Play played as : " + GameType.substring(3));
+                    System.out.println("Play played as : " + GameType.substring(0,5));
+                    System.out.println("Board size : " + GameType.substring(5,8));
                     System.out.println("Player Wins : " + rs.getInt("PlayerWins"));
                     System.out.println("AI wins : " + rs.getInt("AiWins"));
-                    break;
+                    return;
                 }
 
             }
@@ -36,8 +36,9 @@ public class WinRecord {
 
     public static String GetGameType() {
         int[] BoardSize = boardCreation.getBoardSize();
-        String GameType = BoardSize[0] + "x" + BoardSize[1];
-        GameType += PlayGame.SelectColourPlayWillPlayAS();
+        String GameType = PlayGame.SelectColourPlayWillPlayAS();
+        GameType += BoardSize[0] + "x" + BoardSize[1];
+
         return GameType;
 
     }
