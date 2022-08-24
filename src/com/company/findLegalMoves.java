@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class findLegalMoves {
-    public static void findLegalMovesSet(pawn[][]board,String ColourOfPlayer,String ColourOfCurrentPlayer){
+    public static ArrayList<String> findLegalMovesSet(pawn[][]board,String ColourOfPlayer,String ColourOfCurrentPlayer){
         ArrayList<String> SetOfLegalMoveCodes =new ArrayList<>();
         //make board fennel string
         String boardState = "";
@@ -32,20 +32,23 @@ public class findLegalMoves {
         if (ReadTable.SeeIfTableExist(TableBaseName)){
             if(isBoardInDataBase(TableBaseName,binaryToInteger(boardState))){
                 //board is in table
+                GetLegalMoves(TableBaseName,binaryToInteger(boardState),ColourOfPlayer,ColourOfCurrentPlayer);
             }
         }
 
-        else{
-            //who is playing
-            if(ColourOfPlayer.equals("White")){
-                SetOfLegalMoveCodes=FindMoveOnBoard.findWhiteMove(board);
-                AddMovesToTable.AddMoves(SetOfLegalMoveCodes,board);
-            }
-            else{
-                SetOfLegalMoveCodes= FindMoveOnBoard.findBlackMove(board);
-                AddMovesToTable.AddMoves(SetOfLegalMoveCodes,board);
-            }
+
+        //who is playing
+        if(ColourOfCurrentPlayer.equals("White")){
+            SetOfLegalMoveCodes=FindMoveOnBoard.findWhiteMove(board);
+            AddMovesToTable.AddMoves(SetOfLegalMoveCodes,board);
+            return SetOfLegalMoveCodes;
         }
+        else{
+            SetOfLegalMoveCodes= FindMoveOnBoard.findBlackMove(board);
+            AddMovesToTable.AddMoves(SetOfLegalMoveCodes,board);
+            return SetOfLegalMoveCodes;
+        }
+
     }
 
 
@@ -157,6 +160,87 @@ public class findLegalMoves {
             System.out.println("Error in the SQL class: GetMoveCodesFromTable " + e);
         }
         return SetOfLegalMoveCodes;
+    }
+
+
+
+    private static ArrayList<String> GetLegalMoves(String baseTableName,int BoardStateNumber,String ColourOfPlayer,String ColourOfCurrentPlayer) {
+
+        String DatabaseLocation = System.getProperty("user.dir") + "\\NEA_HexaPawn.accdb";
+        int BoardID =0;
+        try {
+
+            Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            String sql = "SELECT * FROM BoardState"+ baseTableName +";";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                if(rs.getInt("BoardFennelString")== BoardStateNumber){
+                    BoardID=rs.getInt("BoardID");
+                    rs.close();
+                    con.close();
+                    break;
+                }
+
+            }
+
+
+        } catch (Exception e) {
+            System.out.println("Error in the SQL class: GetLegalMoves " + e);
+        }
+        ArrayList<Integer> moveIDs = new ArrayList<>();
+
+        try {
+
+            Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            String sql = "SELECT * FROM Link"+ baseTableName +";";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                if(rs.getInt("BoardID")== BoardID){
+                    moveIDs.add(rs.getInt("BoardID"));
+
+                }
+            }
+            rs.close();
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error in the SQL class: GetLegalMoves " + e);
+
+        }
+        ArrayList<String> legalMovesCodes = new ArrayList<>();
+        try {
+
+
+            Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            String sql = "SELECT * FROM Moves"+ baseTableName +";";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                for (int i = 0; i < moveIDs.size(); i++) {
+                    if(rs.getInt("MoveID")== moveIDs.get(i)){
+                        if (!ColourOfPlayer.equals(ColourOfCurrentPlayer)){
+                            if (rs.getBoolean("Considered")){
+                                legalMovesCodes.add(rs.getString("MoveCode"));
+                            }
+                        }
+                        else {
+                            legalMovesCodes.add(rs.getString("MoveCode"));
+                        }
+
+                    }
+                }
+            }
+            rs.close();
+            con.close();
+            return legalMovesCodes;
+        } catch (Exception e) {
+            System.out.println("Error in the SQL class: GetLegalMoves " + e);
+            return legalMovesCodes;
+        }
+
+
+
     }
 
 
