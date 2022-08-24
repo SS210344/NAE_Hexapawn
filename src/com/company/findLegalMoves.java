@@ -9,12 +9,6 @@ import java.util.ArrayList;
 public class findLegalMoves {
     public static void findLegalMovesSet(pawn[][]board,String ColourOfPlayer,String ColourOfCurrentPlayer){
         ArrayList<String> SetOfLegalMoveCodes =new ArrayList<>();
-        //see if tables exist
-        String TableBaseName = board.length +"x" +board[0].length;
-        Boolean doesBoardSetExist = DoesTableExist("Link"+TableBaseName);
-
-
-
         //make board fennel string
         String boardState = "";
         for (int i = 0; i < board.length; i++) {
@@ -33,14 +27,14 @@ public class findLegalMoves {
                 }
             }
         }
-        if (doesBoardSetExist){
-            //the tables exist
+        //see if tables exist
+        String TableBaseName = board.length +"x" +board[0].length;
+        if (ReadTable.SeeIfTableExist(TableBaseName)){
             if(isBoardInDataBase(TableBaseName,binaryToInteger(boardState))){
                 //board is in table
-
             }
-
         }
+
         else{
             //who is playing
             if(ColourOfPlayer.equals("White")){

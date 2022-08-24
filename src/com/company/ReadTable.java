@@ -14,7 +14,7 @@ public class ReadTable {
         try {
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String sql = "SELECT * FROM " + TableBasename + "Board";
+            String sql = "SELECT * FROM BoardState"+TableBasename ;
             ResultSet rs = stmt.executeQuery(sql);
 
             rs.close();

@@ -6,6 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         // write your code here
+        System.out.println( ReadTable.SeeIfTableExist("3x3"));
 
         ArrayList<String>Moves = new ArrayList<>();
         Moves = findLegalMoves.GetMoveCodesFromTable("3x3",1);
@@ -16,8 +17,8 @@ public class Main {
 
         MainMenu.Menu();
         //ReadTable.SQLTest();
-        //System.out.println(ReadTable.SeeIfTableExist("3x3"));
-        //CreateTable.CreateTableSet("4x4");
+        /*System.out.println(ReadTable.SeeIfTableExist("3x3"));
+        CreateTable.CreateTableSet("4x4");
         String[] Output = new String[4];
         Output[0]="White";
         Output[1]="White";
@@ -29,10 +30,12 @@ public class Main {
         board = boardCreation.initialiseBoard(board);
 
         boardDisplay.displayBoard(board);
+
         //AddMovesToTable.AddMoves(findLegalMoves.findBlackMove(board),board);
 
         String[] winner =PlayGame.Game(board);
         System.out.println(winner[0]);
+        */
 
 
 
