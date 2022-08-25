@@ -69,27 +69,35 @@ public class AddMovesToTable {
     private static boolean isBoardInDataBase(String baseTableName, int BoardStateNumber) {
 
         String DatabaseLocation = System.getProperty("user.dir") + "\\NEA_HexaPawn.accdb";
-        Boolean exist = false;
+
+        System.out.println("is board in database processing");
         try {
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String sql = "SELECT * FROM BoardState " + baseTableName + ";";
+            String sql = "SELECT * FROM BoardState" + baseTableName + ";";
             ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                rs.close();
-                con.close();
-                return true;
+            while (rs.next()){
+                if(rs.getInt("boardFennelString")== BoardStateNumber){
+                    rs.close();
+                    con.close();
+                    return true;
+                }
+
+
             }
-            return exist;
+            return false;
+
         } catch (Exception e) {
             System.out.println("Error in the SQL class: isBoardInDataBase " + e);
-            return false;
+
         }
+        return false;
 
     }
 
     private static void AddBoardToDataBase(String baseTableName, int BoardStateNumber) {
         System.out.println(baseTableName);
+        System.out.println("Add Board to database processing");
 
         String DatabaseLocation = System.getProperty("user.dir") + "\\NEA_HexaPawn.accdb";
         try {
@@ -109,6 +117,7 @@ public class AddMovesToTable {
     }
 
     private static ArrayList<String> GetListOFMoveCodesInDataBase(String baseTableName) {
+        System.out.println("GetListOFMoveCodesInDataBase processing");
 
         String DatabaseLocation = System.getProperty("user.dir") + "\\NEA_HexaPawn.accdb";
         ArrayList<String> ListOfMoveCodesInDataBase = new ArrayList<>();
@@ -130,6 +139,7 @@ public class AddMovesToTable {
     }
 
     private static ArrayList<String> removeMoveCodeAlreadyInDataBase(ArrayList<String> ListOfLegalMoveCodes, ArrayList<String> ListOfMoveCodesInDataBase) {
+        System.out.println("removeMoveCodeAlreadyInDataBase processing");
         ArrayList<String> ListOfNonRepeatedMoveCodes = new ArrayList<>();
         for (int i = 0; i < ListOfLegalMoveCodes.size(); i++) {
             String MoveCode = ListOfLegalMoveCodes.get(i);
@@ -149,6 +159,7 @@ public class AddMovesToTable {
     }
 
     private static void AddMoveCodesToDataBase(String baseTableName, String MoveCode) {
+        System.out.println("AddMoveCodesToDataBase processing");
 
 
         String DatabaseLocation = System.getProperty("user.dir") + "\\NEA_HexaPawn.accdb";
@@ -169,6 +180,7 @@ public class AddMovesToTable {
     }
 
     private static void AddLinkToDataBase(String baseTableName, int BoardID, int MoveID) {
+        System.out.println("AddLinkToDataBase processing");
         System.out.println(baseTableName);
 
         String DatabaseLocation = System.getProperty("user.dir") + "\\NEA_HexaPawn.accdb";
