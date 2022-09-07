@@ -92,6 +92,8 @@ public class findLegalMoves {
                 }
 
             }
+            rs.close();
+            con.close();
             return false;
         } catch (Exception e) {
             System.out.println("Error in the SQL class: isBoardInDataBase " + e);

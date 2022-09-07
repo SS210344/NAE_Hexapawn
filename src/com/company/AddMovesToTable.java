@@ -85,6 +85,8 @@ public class AddMovesToTable {
 
 
             }
+            rs.close();
+            con.close();
             return false;
 
         } catch (Exception e) {
@@ -167,10 +169,10 @@ public class AddMovesToTable {
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             String sql = "INSERT INTO Moves" + baseTableName + " (MoveCode)";
-            sql = sql + " Values();";
+            sql = sql + " Values("+MoveCode+");";
             System.out.println(sql);
-            int i = stmt.executeUpdate(sql);
-            System.out.println("rows Added " + i);
+            stmt.executeUpdate(sql);
+
             con.close();
 
 
