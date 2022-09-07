@@ -9,13 +9,13 @@ public class boardCreation {
         int collum;
         while (true) {
             try {
-                System.out.println("number of rows between 3 and 5");
+                System.out.println("Number of rows between 3 and 5");
                 row = input.nextInt();
                 if ((row >= 3) && (row <=5)){
                     break;
                 }
                 else{
-                    System.out.println("number needs to be between 3 and 5");
+                    System.out.println("Number needs to be between 3 and 5");
                 }
             } catch (java.util.InputMismatchException e) {
                 System.out.println("please input a whole number");

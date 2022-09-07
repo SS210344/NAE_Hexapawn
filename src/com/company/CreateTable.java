@@ -20,7 +20,7 @@ public class CreateTable {
 
             String sql = "CREATE TABLE BoardState"+BaseTableName+" (\n"+
                     "BoardID AUTOINCREMENT NOT NULL PRIMARY KEY,\n"+
-                    "BoardFennelString LONG,\n"+
+                    "   LONG,\n"+
                     "BoardSize VARCHAR(255)\n"+
             ");";
 
