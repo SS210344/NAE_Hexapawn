@@ -197,7 +197,7 @@ public class AddMovesToTable {
             String sql = "INSERT INTO Link" + baseTableName + " (BoardID,MoveID.Link)";
             sql = sql + " Values((SELECT BoardID from BoardState" + baseTableName + " where BoardID="+BoardID+"),(SELECT MoveID from Moves" + baseTableName + " where MoveID="+MoveID+"));";
 
-https://dba.stackexchange.com/questions/46410/how-do-i-insert-a-row-which-contains-a-foreign-key*/
+//https://dba.stackexchange.com/questions/46410/how-do-i-insert-a-row-which-contains-a-foreign-key
 
             System.out.println(sql);
             stmt.executeUpdate(sql);
