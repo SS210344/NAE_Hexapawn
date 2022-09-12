@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+
 public class AddMovesToTable {
     public static void AddMoves(ArrayList<String> ListOfLegalMoveCodes, pawn[][] board) {
         String TableBaseName = board.length + "x" + board[0].length;
@@ -93,6 +94,7 @@ public class AddMovesToTable {
             System.out.println("Error in the SQL class: isBoardInDataBase " + e);
 
         }
+
         return false;
 
     }
@@ -105,11 +107,10 @@ public class AddMovesToTable {
         try {
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String sql = "INSERT INTO BoardState" + baseTableName + " (BoardFennelString,BoardSize)";
-            sql = sql + " Values(" + BoardStateNumber + "," + baseTableName + ");";
+            String sql = "INSERT INTO BoardState" +baseTableName+ " (BoardFennelString,BoardSize)";
+            sql = sql + " Values('" +BoardStateNumber+ "','" +baseTableName+ "');";
             System.out.println(sql);
-            int i = stmt.executeUpdate(sql);
-            System.out.println("rows Added " + i);
+            stmt.executeUpdate(sql);
             con.close();
 
 
@@ -169,7 +170,7 @@ public class AddMovesToTable {
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             String sql = "INSERT INTO Moves" + baseTableName + " (MoveCode)";
-            sql = sql + " Values("+MoveCode+");";
+            sql = sql + " Values('"+MoveCode+"');";
             System.out.println(sql);
             stmt.executeUpdate(sql);
 
@@ -189,11 +190,17 @@ public class AddMovesToTable {
         try {
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String sql = "INSERT INTO Link" + baseTableName + " (BoardID,MoveID)";
-            sql = sql + " Values(" + BoardID + "," + MoveID + ");";
+
+            //String sql = "INSERT INTO Link" + baseTableName + " (BoardID,MoveID)";
+            //sql = sql + " Values('" + BoardID + "','" + MoveID + "');";
+
+            String sql = "INSERT INTO Link" + baseTableName + " (BoardID,MoveID.Link)";
+            sql = sql + " Values((SELECT BoardID from BoardState" + baseTableName + " where BoardID="+BoardID+"),(SELECT MoveID from Moves" + baseTableName + " where MoveID="+MoveID+"));";
+
+https://dba.stackexchange.com/questions/46410/how-do-i-insert-a-row-which-contains-a-foreign-key*/
+
             System.out.println(sql);
-            int i = stmt.executeUpdate(sql);
-            System.out.println("rows Added " + i);
+            stmt.executeUpdate(sql);
             con.close();
 
 
