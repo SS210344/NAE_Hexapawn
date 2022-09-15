@@ -18,15 +18,14 @@ public class ReadTable {
             ResultSet rs = stmt.executeQuery(sql);
 
             rs.close();
-
             con.close();
             return true;
 
         } catch (Exception e) {
-
             System.out.println("Error in the SQL class: " + e);
             return false;
         }
+
 
     }
 

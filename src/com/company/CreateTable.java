@@ -20,11 +20,11 @@ public class CreateTable {
 
             String sql = "CREATE TABLE BoardState"+BaseTableName+" (\n"+
                     "BoardID AUTOINCREMENT NOT NULL PRIMARY KEY,\n"+
-                    "   LONG,\n"+
+                    "BoardFennelString LONG,\n"+
                     "BoardSize VARCHAR(255)\n"+
             ");";
 
-            stmt.executeUpdate(sql);
+            stmt.execute(sql);
 
             con.close();
 

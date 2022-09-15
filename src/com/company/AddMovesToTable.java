@@ -193,14 +193,27 @@ public class AddMovesToTable {
 
             //String sql = "INSERT INTO Link" + baseTableName + " (BoardID,MoveID)";
             //sql = sql + " Values('" + BoardID + "','" + MoveID + "');";
+            /*
 
-            String sql = "INSERT INTO Link" + baseTableName + " (BoardID,MoveID.Link)";
+            String sql = "INSERT INTO Link" + baseTableName + " (BoardID,MoveID)";
             sql = sql + " Values((SELECT BoardID from BoardState" + baseTableName + " where BoardID="+BoardID+"),(SELECT MoveID from Moves" + baseTableName + " where MoveID="+MoveID+"));";
-
+https://towardsdatascience.com/sql-insert-values-with-joined-ids-from-another-table-83ff7f149296
 //https://dba.stackexchange.com/questions/46410/how-do-i-insert-a-row-which-contains-a-foreign-key
 
+             */
+            String sql = "WITH inputValues(BoardID,MoveID) AS (\n" +
+                    "values('" + BoardID + "','" + MoveID + "'))\n"+
+
+                    "INSERT INTO  Link" + baseTableName + "(BoardID,MoveID)\n" +
+                    "SELECT BoardID.BoardState" + baseTableName + ", MoveID.Moves" + baseTableName +" \n"+
+                    "FROM inputValues AS d\n" +
+                    "INNER JOIN BoardState" + baseTableName + " AS BS\n" +
+                    "ON d.BoardID = BS.BoardID\n" +
+                    "INNER JOIN Moves" + baseTableName + " AS M\n" +
+                    "ON d.MoveID=M.MoveID;";
+
             System.out.println(sql);
-            stmt.executeUpdate(sql);
+            stmt.execute(sql);
             con.close();
 
         } catch (Exception e) {

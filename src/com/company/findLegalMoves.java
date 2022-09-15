@@ -34,6 +34,8 @@ public class findLegalMoves {
                 //board is in table
                 GetLegalMoves(TableBaseName,binaryToInteger(boardState),ColourOfPlayer,ColourOfCurrentPlayer);
             }
+        }else{
+            CreateTable.CreateTableSet(TableBaseName);
         }
 
 
