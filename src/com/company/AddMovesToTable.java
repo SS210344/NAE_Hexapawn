@@ -203,7 +203,6 @@ public class AddMovesToTable {
             stmt.executeUpdate(sql);
             con.close();
 
-
         } catch (Exception e) {
             System.out.println("Error in the SQL class: AddBoardToDataBase " + e);
         }
