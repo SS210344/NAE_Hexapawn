@@ -52,6 +52,7 @@ public class AddMovesToTable {
             AddLinkToDataBase(TableBaseName, BoardID, MoveID);
 
         }
+        return;
 
 
     }
@@ -191,26 +192,15 @@ public class AddMovesToTable {
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
-            //String sql = "INSERT INTO Link" + baseTableName + " (BoardID,MoveID)";
-            //sql = sql + " Values('" + BoardID + "','" + MoveID + "');";
-            /*
+            String sql = "INSERT INTO Link" + baseTableName + " (BoardID,MoveID) ";
+            sql = sql + "SELECT BoardState" + baseTableName + ".BoardID, Moves" + baseTableName +".MoveID ";
+            sql = sql + "FROM BoardState" + baseTableName + ", Moves" + baseTableName+" ";
+            sql = sql + "WHERE (((BoardState" + baseTableName + ".BoardID)="+BoardID+") AND ((Moves" + baseTableName+".MoveID)="+MoveID+"));";
 
-            String sql = "INSERT INTO Link" + baseTableName + " (BoardID,MoveID)";
-            sql = sql + " Values((SELECT BoardID from BoardState" + baseTableName + " where BoardID="+BoardID+"),(SELECT MoveID from Moves" + baseTableName + " where MoveID="+MoveID+"));";
-https://towardsdatascience.com/sql-insert-values-with-joined-ids-from-another-table-83ff7f149296
-//https://dba.stackexchange.com/questions/46410/how-do-i-insert-a-row-which-contains-a-foreign-key
 
-             */
-            String sql = "WITH inputValues(BoardID,MoveID) AS (\n" +
-                    "values('" + BoardID + "','" + MoveID + "'))\n"+
 
-                    "INSERT INTO  Link" + baseTableName + "(BoardID,MoveID)\n" +
-                    "SELECT BoardID.BoardState" + baseTableName + ", MoveID.Moves" + baseTableName +" \n"+
-                    "FROM inputValues AS d\n" +
-                    "INNER JOIN BoardState" + baseTableName + " AS BS\n" +
-                    "ON d.BoardID = BS.BoardID\n" +
-                    "INNER JOIN Moves" + baseTableName + " AS M\n" +
-                    "ON d.MoveID=M.MoveID;";
+
+
 
             System.out.println(sql);
             stmt.execute(sql);

@@ -6,6 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         // write your code here
+
         System.out.println( ReadTable.SeeIfTableExist("3x3"));
 
         ArrayList<String>Moves = new ArrayList<>();
