@@ -72,7 +72,7 @@ public class AddMovesToTable {
 
         String DatabaseLocation = System.getProperty("user.dir") + "\\NEA_HexaPawn.accdb";
 
-        System.out.println("is board in database processing");
+
         try {
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -101,8 +101,7 @@ public class AddMovesToTable {
     }
 
     private static void AddBoardToDataBase(String baseTableName, int BoardStateNumber) {
-        System.out.println(baseTableName);
-        System.out.println("Add Board to database processing");
+
 
         String DatabaseLocation = System.getProperty("user.dir") + "\\NEA_HexaPawn.accdb";
         try {
@@ -110,7 +109,7 @@ public class AddMovesToTable {
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             String sql = "INSERT INTO BoardState" +baseTableName+ " (BoardFennelString,BoardSize)";
             sql = sql + " Values('" +BoardStateNumber+ "','" +baseTableName+ "');";
-            System.out.println(sql);
+
             stmt.executeUpdate(sql);
             con.close();
 
@@ -121,7 +120,7 @@ public class AddMovesToTable {
     }
 
     private static ArrayList<String> GetListOFMoveCodesInDataBase(String baseTableName) {
-        System.out.println("GetListOFMoveCodesInDataBase processing");
+
 
         String DatabaseLocation = System.getProperty("user.dir") + "\\NEA_HexaPawn.accdb";
         ArrayList<String> ListOfMoveCodesInDataBase = new ArrayList<>();
@@ -143,7 +142,7 @@ public class AddMovesToTable {
     }
 
     private static ArrayList<String> removeMoveCodeAlreadyInDataBase(ArrayList<String> ListOfLegalMoveCodes, ArrayList<String> ListOfMoveCodesInDataBase) {
-        System.out.println("removeMoveCodeAlreadyInDataBase processing");
+
         ArrayList<String> ListOfNonRepeatedMoveCodes = new ArrayList<>();
         for (int i = 0; i < ListOfLegalMoveCodes.size(); i++) {
             String MoveCode = ListOfLegalMoveCodes.get(i);
@@ -163,7 +162,7 @@ public class AddMovesToTable {
     }
 
     private static void AddMoveCodesToDataBase(String baseTableName, String MoveCode) {
-        System.out.println("AddMoveCodesToDataBase processing");
+
 
 
         String DatabaseLocation = System.getProperty("user.dir") + "\\NEA_HexaPawn.accdb";
@@ -172,7 +171,6 @@ public class AddMovesToTable {
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             String sql = "INSERT INTO Moves" + baseTableName + " (MoveCode)";
             sql = sql + " Values('"+MoveCode+"');";
-            System.out.println(sql);
             stmt.executeUpdate(sql);
 
             con.close();
@@ -184,26 +182,28 @@ public class AddMovesToTable {
     }
 
     private static void AddLinkToDataBase(String baseTableName, int BoardID, int MoveID) {
-        System.out.println("AddLinkToDataBase processing");
-        System.out.println(baseTableName);
+
+
 
         String DatabaseLocation = System.getProperty("user.dir") + "\\NEA_HexaPawn.accdb";
         try {
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+/*
+            String sql = "INSERT INTO Link" + baseTableName + " (BoardID,MoveID) \n";
+            sql = sql + "SELECT BoardState" + baseTableName + ".BoardID, Moves" + baseTableName +".MoveID \n";
+            sql = sql + "FROM BoardState" + baseTableName + ", Moves" + baseTableName+"\n";
+            sql = sql + "WHERE BoardState" + baseTableName + ".BoardID="+BoardID+" AND Moves" + baseTableName+".MoveID="+MoveID+";";
+*/
+            String sql = "INSERT INTO Link" + baseTableName + " (BoardID,MoveID,Considered) \n";
+            sql = sql + "VAlUES ("+BoardID+","+MoveID+",True);\n";
 
-            String sql = "INSERT INTO Link" + baseTableName + " (BoardID,MoveID) ";
-            sql = sql + "SELECT BoardState" + baseTableName + ".BoardID, Moves" + baseTableName +".MoveID ";
-            sql = sql + "FROM BoardState" + baseTableName + ", Moves" + baseTableName+" ";
-            sql = sql + "WHERE (((BoardState" + baseTableName + ".BoardID)="+BoardID+") AND ((Moves" + baseTableName+".MoveID)="+MoveID+"));";
 
 
 
 
+            int i = stmt.executeUpdate(sql);
 
-
-            System.out.println(sql);
-            stmt.execute(sql);
             con.close();
 
         } catch (Exception e) {
@@ -214,8 +214,9 @@ public class AddMovesToTable {
     public static int GetBoardID(String baseTableName, int BoardFennelStringToGet) {
 
         String DatabaseLocation = System.getProperty("user.dir") + "\\NEA_HexaPawn.accdb";
-
+        int WantedBoardID = 0;
         try {
+
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             String sql = "SELECT * FROM BoardState" + baseTableName + ";";
@@ -223,20 +224,21 @@ public class AddMovesToTable {
             while (rs.next()) {
                 int BoardFennelString = rs.getInt("BoardFennelString");
                 if (BoardFennelString == BoardFennelStringToGet) {
-                    return rs.getInt("BoardID");
+                   WantedBoardID=  rs.getInt("BoardID");
                 }
 
             }
-            System.out.println("record not found");
+
             rs.close();
             con.close();
         } catch (Exception e) {
             System.out.println("Error in the SQL class GetBoardId: " + e);
-            return 0;
+            return WantedBoardID;
         }
-        return 0;
+        return WantedBoardID;
     }
     public static int GetMoveID(String baseTableName,String MoveCodeTofind) {
+        int WantedMoveID = 0;
 
         String DatabaseLocation = System.getProperty("user.dir") + "\\NEA_HexaPawn.accdb";
 
@@ -248,18 +250,18 @@ public class AddMovesToTable {
             while (rs.next()) {
                 String MoveCode= rs.getString("MoveCode");
                 if (MoveCode.equals(MoveCodeTofind)) {
-                    return rs.getInt("MoveID");
+                    WantedMoveID= rs.getInt("MoveID");
                 }
 
             }
-            System.out.println("record not found");
+
             rs.close();
             con.close();
         } catch (Exception e) {
             System.out.println("Error in the SQL class getMoveID: " + e);
-            return 0;
+            return WantedMoveID;
         }
-        return 0;
+        return WantedMoveID;
     }
 
 
