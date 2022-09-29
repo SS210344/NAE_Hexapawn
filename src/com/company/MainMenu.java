@@ -1,7 +1,7 @@
 package com.company;
 
 import java.util.Scanner;
-
+import java.lang.String;
 public class MainMenu {
     public static void Menu() {
         while (true) {
@@ -18,10 +18,13 @@ public class MainMenu {
                 if ((option >= 1) && (option <= 4)) {
                     if (option == 1) {
                         //play game
-                        PlayGame.Game(boardCreation.initialiseBoard(boardCreation.makeBoard(boardCreation.getBoardSize())));
+                        String[] Output = new String[4];
+                        Output = PlayGame.Game(boardCreation.initialiseBoard(boardCreation.makeBoard(boardCreation.getBoardSize())));
+                        System.out.println("the winner is "+Output[0]);
                     }
                     if (option == 2) {
                         //see win record
+
                         WinRecord.SeeWinRecord(WinRecord.GetGameType());
                     }
                     if (option == 3) {

@@ -218,7 +218,7 @@ public class findLegalMoves {
 
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String sql = "SELECT * FROM Moves"+ baseTableName +";";
+            String sql = "SELECT * FROM Move"+ baseTableName +";";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 for (int i = 0; i < moveIDs.size(); i++) {

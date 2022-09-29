@@ -11,6 +11,7 @@ public class PlayGame {
         String BoardSize = board.length+"x"+board[0].length;
         String[] Output = new String[4];
         Output[3] = BoardSize;
+        //output winner colour of player, Ai last move, BoardSize
 
 
                 //display Board
