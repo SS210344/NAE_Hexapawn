@@ -189,12 +189,7 @@ public class AddMovesToTable {
         try {
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-/*
-            String sql = "INSERT INTO Link" + baseTableName + " (BoardID,MoveID) \n";
-            sql = sql + "SELECT BoardState" + baseTableName + ".BoardID, Moves" + baseTableName +".MoveID \n";
-            sql = sql + "FROM BoardState" + baseTableName + ", Moves" + baseTableName+"\n";
-            sql = sql + "WHERE BoardState" + baseTableName + ".BoardID="+BoardID+" AND Moves" + baseTableName+".MoveID="+MoveID+";";
-*/
+
             String sql = "INSERT INTO Link" + baseTableName + " (BoardID,MoveID,Considered) \n";
             sql = sql + "VAlUES ("+BoardID+","+MoveID+",True);\n";
 
