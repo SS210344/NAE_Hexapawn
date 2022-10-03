@@ -49,7 +49,9 @@ public class AddMovesToTable {
         int BoardID = GetBoardID(TableBaseName, BoardStateNumber);
         for (int i = 0; i < ListOfLegalMoveCodes.size(); i++) {
             int MoveID = GetMoveID(TableBaseName,ListOfLegalMoveCodes.get(i));
-            AddLinkToDataBase(TableBaseName, BoardID, MoveID);
+            if(!IsLinkRecordInDataBase(BoardID,MoveID,TableBaseName)) {
+                AddLinkToDataBase(TableBaseName, BoardID, MoveID);
+            }
 
         }
         return;
@@ -257,6 +259,31 @@ public class AddMovesToTable {
             return WantedMoveID;
         }
         return WantedMoveID;
+    }
+    public static boolean IsLinkRecordInDataBase(int BoardID,int MoveID,String baseTableName) {
+        Boolean InDataBase = false;
+
+        String DatabaseLocation = System.getProperty("user.dir") + "\\NEA_HexaPawn.accdb";
+
+        try {
+            Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            String sql = "SELECT * FROM Link" + baseTableName + ";";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                if ((rs.getInt("BoardID")==BoardID)&&(rs.getInt("MoveID")==MoveID)) {
+                    InDataBase =true;
+                }
+
+            }
+
+            rs.close();
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error in the SQL class getMoveID: " + e);
+            return InDataBase;
+        }
+        return InDataBase;
     }
 
 
