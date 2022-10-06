@@ -103,7 +103,7 @@ public class findLegalMoves {
         }
 
     }
-    private static int binaryToInteger(String binary) {
+    public static int binaryToInteger(String binary) {
         char[] numbers = binary.toCharArray();
         int result = 0;
         for (int i = numbers.length - 1; i >= 0; i--) {

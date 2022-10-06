@@ -18,14 +18,19 @@ public class MainMenu {
                 if ((option >= 1) && (option <= 4)) {
                     if (option == 1) {
                         //play game
-                        String[] Output = new String[4];
+                        String[] Output = new String[5];
+                        //output values are, winner,colour of player,Ai last move,board size, board fennel number
                         Output = PlayGame.Game(boardCreation.initialiseBoard(boardCreation.makeBoard(boardCreation.getBoardSize())));
                         System.out.println("the winner is "+Output[0]);
+                        UpdateAI.DisableLosingMove(Output);
+                        WinRecord.UpdateRecords(Output);
+
                     }
                     if (option == 2) {
                         //see win record
 
                         WinRecord.SeeWinRecord(WinRecord.GetGameType());
+
                     }
                     if (option == 3) {
                         //instructions and rules
