@@ -16,6 +16,7 @@ public class PlayGame {
 
                 //display Board
         boardDisplay.displayBoard(board);
+
         // see what colour player wants to play as
         String colourOfPlayer = SelectColourPlayWillPlayAS();
         Output[1] = colourOfPlayer;
@@ -49,31 +50,34 @@ public class PlayGame {
             }
             else {
                 moveCode= selectMove.selectAIMove(listOFLegalMoveCode);
+                AILastMove= moveCode;
+                //board fennel string
+                String boardState = "";
+                for (int i = 0; i < board.length; i++) {
+                    for (int j = 0; j < board[i].length; j++) {
+                        pawn temp = board[i][j];
+                        if (temp.getColour().equals("blank")){
+                            boardState=boardState+"00";
+                        }
+                        if (temp.getColour().equals("black")){
+                            boardState=boardState+"10";
+                        }
+                        if (temp.getColour().equals("white")){
+                            boardState=boardState+"01";
+
+
+                        }
+                    }
+                }
+                Output[4] = String.valueOf(findLegalMoves.binaryToInteger(boardState));
             }
+
+
             //update board
             board= updateBoard.boardUpdate(board,moveCode);
             //display board
             boardDisplay.displayBoard(board);
 
-            //board fennel string
-            String boardState = "";
-            for (int i = 0; i < board.length; i++) {
-                for (int j = 0; j < board[i].length; j++) {
-                    pawn temp = board[i][j];
-                    if (temp.getColour().equals("blank")){
-                        boardState=boardState+"00";
-                    }
-                    if (temp.getColour().equals("black")){
-                        boardState=boardState+"10";
-                    }
-                    if (temp.getColour().equals("white")){
-                        boardState=boardState+"01";
-
-
-                    }
-                }
-            }
-            Output[4] = String.valueOf(findLegalMoves.binaryToInteger(boardState));
 
 
 

@@ -20,18 +20,19 @@ public class UpdateAI {
 
     }
     private static void UpdateTableConsider (String AiLastMove,String BoardSize, String BoardFennelNumber){
+        int MoveID =AddMovesToTable.GetMoveID(BoardSize,AiLastMove);
+        int BoardID = AddMovesToTable.GetBoardID(BoardSize,Integer.parseInt(BoardFennelNumber));
 
         String DatabaseLocation = System.getProperty("user.dir") + "\\NEA_HexaPawn.accdb";
         try {
+            String sql = "UPDATE Link"+BoardSize+"";
+            sql =sql+ " SET Considered = False";
+            sql = sql+" Where MoveID ="+MoveID+" And BoardID ="+BoardID+" ";
+
             Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
-            String sql = "UPDATE Link"+BoardSize+"\n";
-            sql =sql+ "SET Considered = false\n";
-            sql = sql+"Where MoveID ="+AddMovesToTable.GetMoveID(BoardSize,AiLastMove)+ " And BoardID ="+AddMovesToTable.GetBoardID(BoardSize,Integer.parseInt(BoardFennelNumber));
-
-
-            int i = stmt.executeUpdate(sql);
+            stmt.executeUpdate(sql);
 
             con.close();
 
