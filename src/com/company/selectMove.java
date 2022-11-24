@@ -8,6 +8,8 @@ public class selectMove {
     public static String selectPlayerMove(ArrayList<String> listOfLegalMove ){
         Scanner input = new Scanner(System.in);
         int MoveSelected;
+        // sorts list into alphabetical order
+        listOfLegalMove= MergeSort.MergeSort(listOfLegalMove);
         // prints list of moves
         System.out.println("list of legal move:");
         for (int i = 0; i < listOfLegalMove.size(); i++) {
