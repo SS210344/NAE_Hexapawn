@@ -121,7 +121,7 @@ public class PlayGame {
                     return colourOfPlayer;
                 }
                 else{
-                    System.out.println("The first letter need to be a capital");
+                    System.out.println("please input black or white and the first letter need to be a capital");
                 }
 
             } catch (java.util.InputMismatchException e) {
