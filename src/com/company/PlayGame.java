@@ -69,7 +69,7 @@ public class PlayGame {
                         }
                     }
                 }
-                Output[4] = String.valueOf(findLegalMoves.binaryToInteger(boardState));
+                Output[4] = String.valueOf(Hashing.hashOperation(boardState));
             }
 
 

@@ -30,9 +30,9 @@ public class findLegalMoves {
         //see if tables exist
         String TableBaseName = board.length +"x" +board[0].length;
         if (ReadTable.SeeIfTableExist(TableBaseName)){
-            if(isBoardInDataBase(TableBaseName,binaryToInteger(boardState))){
+            if(isBoardInDataBase(TableBaseName,Hashing.hashOperation(boardState))){
                 //board is in table
-                GetLegalMoves(TableBaseName,binaryToInteger(boardState),ColourOfPlayer,ColourOfCurrentPlayer);
+                GetLegalMoves(TableBaseName,Hashing.hashOperation(boardState),ColourOfPlayer,ColourOfCurrentPlayer);
             }
         }else{
             CreateTable.CreateTableSet(TableBaseName);
@@ -103,16 +103,7 @@ public class findLegalMoves {
         }
 
     }
-    public static int binaryToInteger(String binary) {
-        char[] numbers = binary.toCharArray();
-        int result = 0;
-        for (int i = numbers.length - 1; i >= 0; i--) {
-            if (numbers[i] == '1') {
-                result += Math.pow(2, (numbers.length - i - 1));
-            }
-        }
-        return result;
-    }
+
     public static ArrayList<String> GetMoveCodesFromTable(String BaseTableName,int BoardStateNumber){
         ArrayList<String> SetOfLegalMoveCodes =new ArrayList<>();
         String DatabaseLocation = System.getProperty("user.dir") + "\\NEA_HexaPawn.accdb";

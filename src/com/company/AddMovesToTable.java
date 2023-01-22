@@ -29,7 +29,7 @@ public class AddMovesToTable {
                 }
             }
         }
-        int BoardStateNumber = binaryToInteger(boardState);
+        int BoardStateNumber = Hashing.hashOperation(boardState);
         //see if board is in the DataBase
         if (!isBoardInDataBase(TableBaseName, BoardStateNumber)) {
             //add board to database
@@ -59,16 +59,7 @@ public class AddMovesToTable {
 
     }
 
-    private static int binaryToInteger(String binary) {
-        char[] numbers = binary.toCharArray();
-        int result = 0;
-        for (int i = numbers.length - 1; i >= 0; i--) {
-            if (numbers[i] == '1') {
-                result += Math.pow(2, (numbers.length - i - 1));
-            }
-        }
-        return result;
-    }
+
 
     private static boolean isBoardInDataBase(String baseTableName, int BoardStateNumber) {
 
