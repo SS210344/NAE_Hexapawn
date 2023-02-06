@@ -80,6 +80,7 @@ public class WinRecord {
 
             //UpdateRecords(Output); add when inset works
             System.out.println("record not found");
+            UpdateRecords(Output);
 
         } catch (Exception e) {
             System.out.println("Error in the SQL class SeeWinRecord: " + e);
