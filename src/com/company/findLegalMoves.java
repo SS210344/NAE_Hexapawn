@@ -55,28 +55,7 @@ public class findLegalMoves {
 
 
 
-    public static Boolean DoesTableExist(String TableName){
-        String DatabaseLocation = System.getProperty("user.dir") + "\\NEA_HexaPawn.accdb";
-        try {
-            Connection con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation,"","");
-            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String sql = "SELECT * FROM "+TableName+" ;";
-            ResultSet rs =  stmt.executeQuery(sql);
-            if(rs.next()) {
-                con.close();
-                rs.close();
-                return true;
-            }
-            else{
-                return true;
-            }
 
-        } catch (Exception e) {
-            System.out.println("Error in the SQL class : DoesTableExist " + e);
-            return false;
-        }
-
-    }
     private static boolean isBoardInDataBase(String baseTableName,int BoardStateNumber) {
 
         String DatabaseLocation = System.getProperty("user.dir") + "\\NEA_HexaPawn.accdb";

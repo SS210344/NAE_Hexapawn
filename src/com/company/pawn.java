@@ -14,4 +14,5 @@ public class pawn {
     public void setColour(String colour) {
         this.colour = colour;
     }
+    
 }
